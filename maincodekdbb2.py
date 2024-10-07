@@ -2,26 +2,40 @@ import streamlit as st
 import pickle
 import numpy as np
 import os
+import requests
 
 # Load the spam detection model and vectorizer
 model_path = r"https://raw.githubusercontent.com/adibirje14/EmailSpamm/master/merged_model.pkl"
 vectorizer_path = r"https://raw.githubusercontent.com/adibirje14/EmailSpamm/main/vectorizer.pkl"
 
 # Fetch and load the model
+print("Fetching model from:", model_path)  # Debugging line
 response = requests.get(model_path)
-with open("merged_model.pkl", "wb") as f:
-    f.write(response.content)
+print("Response Status Code:", response.status_code)  # Debugging line
 
-with open("merged_model.pkl", 'rb') as f:
-    model = pickle.load(f)
+if response.status_code == 200:
+    with open("merged_model.pkl", "wb") as f:
+        f.write(response.content)
+
+    with open("merged_model.pkl", 'rb') as f:
+        model = pickle.load(f)
+else:
+    st.error(f"Failed to fetch model. Status code: {response.status_code}")
 
 # Fetch and load the vectorizer
+print("Fetching vectorizer from:", vectorizer_path)  # Debugging line
 vectorizer_response = requests.get(vectorizer_path)
-with open("vectorizer.pkl", "wb") as f:
-    f.write(vectorizer_response.content)
+print("Response Status Code:", vectorizer_response.status_code)  # Debugging line
 
-with open("vectorizer.pkl", 'rb') as f:
-    vectorizer = pickle.load(f)
+if vectorizer_response.status_code == 200:
+    with open("vectorizer.pkl", "wb") as f:
+        f.write(vectorizer_response.content)
+
+    with open("vectorizer.pkl", 'rb') as f:
+        vectorizer = pickle.load(f)
+else:
+    st.error(f"Failed to fetch vectorizer. Status code: {vectorizer_response.status_code}")
+
 
 # Function to predict spam
 def predict_spam(email_content):
