@@ -1,7 +1,6 @@
 import streamlit as st
 import pickle
 import numpy as np
-from joblib import load
 import os
 
 # Load the spam detection model and vectorizer
