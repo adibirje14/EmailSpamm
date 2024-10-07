@@ -4,7 +4,7 @@ import numpy as np
 import os
 
 # Load the spam detection model and vectorizer
-model_path = r"https://github.com/adibirje14/EmailSpamm/blobmaster/merged_model.pkl"
+model_path = r"https://raw.githubusercontent.com/adibirje14/EmailSpamm/master/merged_model.pkl"
 vectorizer_path = r"vectorizer.pkl"
 
 # Ensure the model and vectorizer files are available
