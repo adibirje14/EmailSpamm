@@ -5,8 +5,8 @@ from joblib import load
 import os
 
 # Load the spam detection model and vectorizer
-model_path = r"MODEL_DEVANG\best_spam_model.pkl"
-vectorizer_path = r"MODEL_DEVANG\vectorizer.pkl"
+model_path = r"https://github.com/adibirje14/EmailSpamm/blobmaster/merged_model.pkl"
+vectorizer_path = r"vectorizer.pkl"
 
 # Ensure the model and vectorizer files are available
 if not os.path.exists(model_path):
