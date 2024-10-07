@@ -5,17 +5,22 @@ import os
 
 # Load the spam detection model and vectorizer
 model_path = r"https://raw.githubusercontent.com/adibirje14/EmailSpamm/master/merged_model.pkl"
-vectorizer_path = r"vectorizer.pkl"
+vectorizer_path = r"https://raw.githubusercontent.com/adibirje14/EmailSpamm/main/vectorizer.pkl"
 
-# Ensure the model and vectorizer files are available
-if not os.path.exists(model_path):
-    raise FileNotFoundError(f"Model file not found at {model_path}")
+# Fetch and load the model
+response = requests.get(model_path)
+with open("merged_model.pkl", "wb") as f:
+    f.write(response.content)
 
-if not os.path.exists(vectorizer_path):
-    raise FileNotFoundError(f"Vectorizer file not found at {vectorizer_path}")
+with open("merged_model.pkl", 'rb') as f:
+    model = pickle.load(f)
 
-model = load(model_path)
-with open(vectorizer_path, 'rb') as f:
+# Fetch and load the vectorizer
+vectorizer_response = requests.get(vectorizer_path)
+with open("vectorizer.pkl", "wb") as f:
+    f.write(vectorizer_response.content)
+
+with open("vectorizer.pkl", 'rb') as f:
     vectorizer = pickle.load(f)
 
 # Function to predict spam
